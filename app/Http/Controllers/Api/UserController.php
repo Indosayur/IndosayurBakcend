@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function login(Request $Request){
-        // dd($Request->all());die();
         $user = User::where('email', $Request->email)->first();
-        
+
         if($user){
             if(password_verify($Request->password, $user->password)){
                 return response()->json([
@@ -64,6 +63,6 @@ class UserController extends Controller
     }
 }
 
-    
+
 
 
