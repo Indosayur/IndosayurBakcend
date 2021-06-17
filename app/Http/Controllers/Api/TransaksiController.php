@@ -9,13 +9,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class TransaksiController extends Controller {
-    public function checkout (Request $Request){
+    public function store (Request $Request){
         $validasi = Validator::make($Request->all(),[
             'user_id' => 'required',
             'total_item' => 'required',
             'total_harga' => 'required',
             'name' => 'required',
-            'phone' => 'required'
+            'jasa_pengiriman' => 'required',
+            'total_transfer' => 'required',
+            'ongkir' => 'required',
+            'ongkir' => 'required',
+            'bank' => 'required'
         ]);
 
         if($validasi->fails()){
@@ -39,13 +43,13 @@ class TransaksiController extends Controller {
 
         \DB::beginTransaction();
         $transaksi = Transaksi::create($dataTransaksi);
-        foreach ($Request->produks as $produk) {
-            $detail = [
+        foreach ($Request->produks as $produk)  {
+            $detail= [
                 'transaksi_id' => $transaksi->id,
-                'produk_id' => $produk['id'],
-                'total_item' => $produk['total_item'],
-                'catatan' => $produk['catatan'],
-                'total_harga' => $produk['total_harga']
+                'produk_id'=>$produk['id'],
+                'total_item'=>$produk['total_item'],
+                'catatan'=>$produk['catatan'],
+                'total_harga'=>$produk['total_harga']
             ];
             $transaksiDetail = TransaksiDetail::create($detail);
         }
@@ -76,11 +80,11 @@ class TransaksiController extends Controller {
             }
         }
 
-        if (!empty($transaksi)) {
+        if (!empty($transaksis)) {
             return response()->json([
                 'success' => 1,
                 'message' => 'Transaksi Berhasil',
-                'Transaksis' => collect($transaksi)
+                'Transaksis' => collect($transaksis)
             ]);
         } else {
             return $this->error('Transaksi gagal');

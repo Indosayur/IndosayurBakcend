@@ -19,5 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('login','Api\UserController@login');
 Route::post('register', 'Api\UserController@register');
 Route::get('produk', 'Api\ProdukController@index');
-Route::post('checkout', 'Api\TransaksiController@checkout');
+Route::post('checkout', 'Api\TransaksiController@store');
 Route::get('checkout/user/{id}', 'Api\TransaksiController@history');
