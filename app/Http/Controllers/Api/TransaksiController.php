@@ -90,6 +90,24 @@ class TransaksiController extends Controller {
         }
 
     }
+    public function batal($id){
+        $transaksi = Transaksi::where('id', $id)->first();
+        if ($transaksi){
+            $transaksi -> update([
+                'status' => "BATAL"
+            ]);
+
+            return response()->json([
+                'success' => 1,
+                'message' => 'Transaksi Berhasil',
+                'Transaksi' => $transaksi
+            ]);
+
+        }else{
+           return $this->error('Gagal memuat transaksi');
+        }
+
+    }
 
     public function error($pesan){
         return response()->json([
