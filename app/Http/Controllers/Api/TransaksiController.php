@@ -18,7 +18,6 @@ class TransaksiController extends Controller {
             'jasa_pengiriman' => 'required',
             'total_transfer' => 'required',
             'ongkir' => 'required',
-            'ongkir' => 'required',
             'bank' => 'required'
         ]);
 
@@ -71,7 +70,7 @@ class TransaksiController extends Controller {
 
         $transaksis = Transaksi::with(['user'])->whereHas('user', function ($query)use($id){
             $query->whereId($id);
-        })->get();
+        })->orderBy("id", "desc")->get();
 
         foreach ($transaksis as $transaksi){
             $details = $transaksi->details;
