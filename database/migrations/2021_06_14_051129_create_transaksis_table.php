@@ -32,7 +32,6 @@ class CreateTransaksisTable extends Migration
             $table->timestamp('expired_at')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->timestamps();
         });
     }
 
